@@ -25,9 +25,8 @@ void acc_menu(Account& a, int size, int id) {
     else {
         cout << endl<<"Все доступные чаты!" << endl;
         for (int i = 0; i < size; ++i) {
-            cout << i<<". ";
+            cout << i+1<<". ";
             if (id == a.get_id()) {
-                cout << a.get_login()[i + 1] << endl;
             }
             else {
                 cout << a.get_login()[i] << endl;
@@ -53,9 +52,14 @@ int main() {
     
     
     vector<Account>accounts;
+    vector<Message>messages;
 
     while (programm) {
         
+        srand(time(NULL));
+        int a = rand()%16383;
+        cout << a << endl;
+
         menu();
         short choice;
         std::cin >> choice;
@@ -66,12 +70,12 @@ int main() {
             registration(login, password);
             Account* acc = new Account(login,password,id);
             accounts.push_back(*acc);
+            delete acc;
             accounts[size].set_login(login);
             accounts[size].set_password(password);
             accounts[size].set_id(size);
-            foo(accounts[size]);
+            //foo(accounts[size]);
             size += 1;
-            delete acc;
             break;
         }
         case 2:
@@ -83,22 +87,41 @@ int main() {
                     std::cin >> password;
                     if (accounts[i].get_password() == password) {
                         id = accounts[i].get_id();
-                        acc_menu(accounts[i], size, id);
+
+
+                        //меню аккаунта с выбором других пользователей для написания сообщений
+                        if (size == 1) {
+                            cout << endl << "Нет других зарегестрированных пользователей!" << endl;
+                            cout << "Зарегестрируйте еще аккаунты!" << endl;
+                        }
+                        else {
+                            cout << endl << "Все доступные чаты!" << endl;
+                            for (int i = 0; i < accounts.size()-1; ++i) {
+                                cout << i + 1 << ". ";
+                                if (id == accounts[i].get_id()) {
+                                    cout << accounts[i+1].get_login() << endl;
+                                }
+                                else {
+                                    cout << accounts[i].get_login() << endl;
+                                }
+                            }
+                            cout << "Что-бы выйти из аккаунта нажмите q";
+                        }
+
+
                         if (size == 1) {
                             break;
                         }
-                        Message* messages = new Message[size];
+                        
                         login = accounts[i].get_login();
                         password = accounts[i].get_password();
                         std::cin >> choice;
-                        switch (choice) {
-                        case 1:
-                            cout << "Сообщение: ";
-                            std::cin >> message;
-                            messages[size-1] = { login, password, message, size, id };
-
-                            break;
+                        for(int j=0;j<accounts.size();++j){
+                            
                         }
+                            Message * messages = new Message();
+                            cout << "Сообщение: ";
+                            std::cin >> message; 
                     }
                     else {
 

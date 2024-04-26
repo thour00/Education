@@ -1,16 +1,18 @@
 #pragma once
 #include<iostream>
 #include "Account.h"
+#include<vector>
 using namespace std;
 
-class Message:public Account
+class Message
 {
 private:
+	Account _a;
+	Account _b;
 	string _message;
-	int _chat = 0;
 public:
 	Message();
-	Message(string& login, string& password, string& message, int _chat, int id);
+	Message(Account _a, string& message);
 	~Message();
 	Message& operator=(Message&& other)noexcept;
 };
