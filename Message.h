@@ -1,19 +1,18 @@
 #pragma once
 #include<iostream>
-#include "Account.h"
 #include<vector>
+#include<string>
 using namespace std;
 
-class Message
+class Message // Класс собщений состоит из двух пользователей(тот кто отправляет и тот кто получает) и самого текста сообщения
 {
-private:
-	Account _a;
-	Account _b;
-	string _message;
 public:
-	Message();
-	Message(Account _a, string& message);
-	~Message();
-	Message& operator=(Message&& other)noexcept;
+	Message(string& user_1, string& user_2, string& message);
+	string get_mess();
+	string get_user_1();
+	string get_user_2();
+private:
+	string _messages;
+	string _user_1;
+	string _user_2;
 };
-
